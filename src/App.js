@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import Bootstrap from "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "jquery";
 import "./App.css";
+import FactsList from "./components/facts-list";
 
 class App extends Component {
   render() {
@@ -17,6 +19,9 @@ class App extends Component {
             <hr />
           </div>
         </header>
+
+        {/* Facts list Component */}
+        <FactsList />
       </div>
     );
   }
