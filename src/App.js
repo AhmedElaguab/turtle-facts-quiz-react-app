@@ -16,7 +16,7 @@ class App extends Component {
               Learn about all the turtles below before you decide to take on the{" "}
               <strong>TURTLE QUIZ</strong>
             </p>
-            <hr />
+            <hr className="mb-0" />
           </div>
         </header>
 

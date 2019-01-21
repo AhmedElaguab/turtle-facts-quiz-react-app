@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import escapeStrRegExp from "escape-string-regexp";
+import sortBy from "sort-by";
 // import PropTypes from "prop-types";
 
 class factsList extends Component {
   state = {
+    query: "",
     activeTurtle: {},
     turtlesData: [
       {
@@ -100,50 +103,90 @@ class factsList extends Component {
     this.setState({ activeTurtle });
   };
 
+  hundleUpdateQuery = query => {
+    this.setState({ query: query.trimStart() });
+  };
+
   render() {
+    const { query, turtlesData } = this.state;
+    let turtles;
+    if (query) {
+      const match = new RegExp(escapeStrRegExp(query), "i");
+      turtles = turtlesData
+        .filter(t => match.test(t.type))
+        .sort(sortBy("type"));
+    } else {
+      turtles = turtlesData;
+    }
+
     return (
       <section>
         <div className="container">
+          <nav className="navbar navbar-light bg-light mb-3">
+            <form className="form-inline">
+              <input
+                className="form-control mr-sm-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                onChange={e => this.hundleUpdateQuery(e.target.value)}
+              />
+            </form>
+          </nav>
           <div className="row">
-            {this.state.turtlesData.map(turtle => (
-              <div className="col-6" key={turtle.type}>
-                <div className="card mb-3 p-2">
-                  <div className="row">
-                    <div className="col-6">
-                      <img
-                        className="rounded"
-                        src={turtle.image_url}
-                        alt={turtle.type}
-                      />
-                    </div>
-                    <div className="col-6 pl-0">
-                      <h4>{turtle.type}</h4>
-                      <hr />
-                      <dl>
-                        <dt>Locations:</dt>
-                        <dd>{turtle.locations}</dd>
-                        <dt>Size:</dt>
-                        <dd>{turtle.size}</dd>
-                        <dt>Average Lifespan:</dt>
-                        <dd>{turtle.lifespan}</dd>
-                        <dt>Diet:</dt>
-                        <dd>{turtle.diet}</dd>
-                      </dl>
-                      {/* Button trigger modal */}
-                      <button
-                        type="button"
-                        className="btn btn-primary float-right"
-                        data-toggle="modal"
-                        data-target="#turtleModal"
-                        onClick={() => this.hundleBtnClick(turtle)}
-                      >
-                        Learn more
-                      </button>
+            {turtles.length > 0 ? (
+              turtles.map(turtle => (
+                <div className="col-6" key={turtle.type}>
+                  <div className="card mb-3 p-2">
+                    <div className="row">
+                      <div className="col-6">
+                        <img
+                          className="rounded"
+                          src={turtle.image_url}
+                          alt={turtle.type}
+                        />
+                      </div>
+                      <div className="col-6 pl-0">
+                        <h4>{turtle.type}</h4>
+                        <hr />
+                        <dl>
+                          <dt>Locations:</dt>
+                          <dd>{turtle.locations}</dd>
+                          <dt>Size:</dt>
+                          <dd>{turtle.size}</dd>
+                          <dt>Average Lifespan:</dt>
+                          <dd>{turtle.lifespan}</dd>
+                          <dt>Diet:</dt>
+                          <dd>{turtle.diet}</dd>
+                        </dl>
+                        {/* Button trigger modal */}
+                        <button
+                          type="button"
+                          className="btn btn-primary float-right"
+                          data-toggle="modal"
+                          data-target="#turtleModal"
+                          onClick={() => this.hundleBtnClick(turtle)}
+                        >
+                          Learn more
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <section>
+                <div className="container">
+                  <div className="row">
+                    <div className="col-12">
+                      <p className="lead text-center d-block">
+                        Nope, We are sorry, It seems there is no matches ):
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
             {/* Modal */}
             <div
