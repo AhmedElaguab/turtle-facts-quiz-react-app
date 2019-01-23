@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import escapeStrRegExp from "escape-string-regexp";
 import sortBy from "sort-by";
 // import PropTypes from "prop-types";
@@ -132,6 +133,10 @@ class factsList extends Component {
                 onChange={e => this.hundleUpdateQuery(e.target.value)}
               />
             </form>
+
+            <Link to="/quiz" className="btn btn-warning float-righ">
+              <strong>Start Quiz</strong>
+            </Link>
           </nav>
           <div className="row">
             {turtles.length > 0 ? (

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Route } from "react-router-dom";
 import "jquery";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import FactsList from "./components/facts-list";
+import Quiz from "./components/quiz";
 
 class App extends Component {
   render() {
@@ -21,7 +23,9 @@ class App extends Component {
         </header>
 
         {/* Facts list Component */}
-        <FactsList />
+
+        <Route exact path="/" component={FactsList} />
+        <Route path="/quiz" render={() => <Quiz />} />
       </div>
     );
   }
