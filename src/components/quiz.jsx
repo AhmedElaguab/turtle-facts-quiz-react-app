@@ -265,50 +265,50 @@ class Quiz extends Component {
     this.setState({ quizQuestions, activeQuestion, answeredQuestionsNum });
   };
 
-  hundleNextQuestionClick = () => {
+  hundleNextQuestionClick = theWay => {
     let { activeQuestionIdx, quizQuestions, answeredQuestionsNum } = this.state;
     const maxIdx = this.state.quizQuestions.length - 1;
+    let startLoop;
 
-    // Go to the result page if the answeredQuestionsNum is great than maxIdx
+    let i;
+    // Go to the result page if the answeredQuestionsNum is greater than maxIdx
     if (answeredQuestionsNum > maxIdx) {
       window.location.pathname = "result";
     }
 
-    // Check the currnet activeQuestion index
-    if (answeredQuestionsNum <= maxIdx && activeQuestionIdx !== maxIdx) {
-      // Increase the "activeQuestionIdx" by one
-      for (let i = activeQuestionIdx + 1; i <= maxIdx; i++) {
+    // Check if the answeredQuestionsNum is less than maxIdx
+    // && theWay is next
+    if (answeredQuestionsNum <= maxIdx && theWay === "next") {
+      startLoop = activeQuestionIdx === maxIdx ? 0 : activeQuestionIdx + 1;
+      // Loop until you find non-selected question
+      for (i = startLoop; i <= maxIdx; i++) {
         if (!quizQuestions[i].selected) {
+          // Set activeQuestionIdx value to the first next non-selected question
           activeQuestionIdx = i;
           break;
         }
       }
 
-      // Declare a constant that holds the the next question object of
-      // the previos activeQuestion
-      const activeQuestion = quizQuestions[activeQuestionIdx];
-
-      // Change the activeQuestion state by the new activeQuestion
-
-      this.setState({ activeQuestion, activeQuestionIdx });
-    } else if (answeredQuestionsNum <= maxIdx && activeQuestionIdx === maxIdx) {
-      // Increase the "activeQuestionIdx" by one
-      // Increase the "activeQuestionIdx" by one
-      for (let i = 0; i <= maxIdx; i++) {
+      // Check if the answeredQuestionsNum is greater than maxIdx
+      // && theWay is previous
+    } else if (answeredQuestionsNum > 0 && theWay === "previous") {
+      startLoop = activeQuestionIdx === 0 ? maxIdx : activeQuestionIdx - 1;
+      // Loop until you find non-selected question
+      for (i = startLoop; i <= maxIdx; i--) {
         if (!quizQuestions[i].selected) {
+          // Set activeQuestionIdx value to the first next or previous non-selected question
           activeQuestionIdx = i;
           break;
         }
       }
-
-      // Declare a constant that holds the the next question object of
-      // the previos activeQuestion
-      const activeQuestion = quizQuestions[activeQuestionIdx];
-
-      // Change the activeQuestion state by the new activeQuestion
-
-      this.setState({ activeQuestion, activeQuestionIdx });
     }
+
+    // Declare a constant that holds the the next question object of
+    // the previos activeQuestion
+    const activeQuestion = quizQuestions[activeQuestionIdx];
+
+    // Change the activeQuestion state by the new activeQuestion
+    this.setState({ activeQuestion, activeQuestionIdx });
   };
 
   hundleSelectedQuestion = selectedQuestIdx => {
@@ -410,7 +410,13 @@ class Quiz extends Component {
                 <div className="row">
                   <div className="col">
                     <button
-                      onClick={this.hundleNextQuestionClick}
+                      onClick={() => this.hundleNextQuestionClick("previous")}
+                      className="btn btn-warning float-left mt-4"
+                    >
+                      <strong>Previous Question</strong>
+                    </button>
+                    <button
+                      onClick={() => this.hundleNextQuestionClick("next")}
                       className="btn btn-warning float-right mt-4"
                     >
                       <strong>Next Question</strong>
