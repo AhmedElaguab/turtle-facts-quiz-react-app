@@ -4,7 +4,7 @@ import React, { Component } from "react";
 
 class Quiz extends Component {
   render() {
-    return (
+    return !this.props.goResult ? (
       <section>
         <div className="container">
           <div className="row">
@@ -109,6 +109,34 @@ class Quiz extends Component {
                       <strong>Next Question</strong>
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <div className="card p-3">
+                <div className="card-body">
+                  <h3 className="mb-5">
+                    Are you sure you want to submit your answers?
+                  </h3>
+                  <button
+                    onClick={() => this.props.hundleResultAnswer("yes")}
+                    className="btn btn-success d-inline mr-2"
+                  >
+                    Yes
+                  </button>
+                  <button
+                    onClick={() => this.props.hundleResultAnswer("no")}
+                    className="btn btn-danger d-inline mr-2"
+                  >
+                    No
+                  </button>
                 </div>
               </div>
             </div>
