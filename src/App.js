@@ -329,8 +329,15 @@ class App extends Component {
     this.setState({ activeQuestion, activeQuestionIdx });
   };
 
-  hundleGoBackToQuiz = () => {
-    this.setState({ goResult: false });
+  hundleGoBackToQuiz = resp => {
+    if (resp === "yes") {
+      this.setState({ goResult: false });
+    } else {
+      const activeQuestion = this.state.quizQuestions[0];
+      const activeQuestionIdx = 0;
+
+      this.setState({ activeQuestion, activeQuestionIdx });
+    }
   };
 
   render() {
@@ -368,7 +375,18 @@ class App extends Component {
           )}
         />
 
-        <Route path="/result" render={() => <Result />} />
+        <Route
+          path="/result"
+          render={() => (
+            <Result
+              quizQuestions={this.state.quizQuestions}
+              correctAnswers={this.state.correctAnswers}
+              activeQuestion={this.state.activeQuestion}
+              activeQuestionIdx={this.state.activeQuestionIdx}
+              hundleSelectedQuestion={this.hundleSelectedQuestion}
+            />
+          )}
+        />
       </div>
     );
   }

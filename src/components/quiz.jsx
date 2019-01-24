@@ -126,11 +126,15 @@ class Quiz extends Component {
                   <h3 className="mb-5">
                     Are you sure you want to submit your answers?
                   </h3>
-                  <Link to="/result" className="btn btn-success d-inline mr-2">
+                  <Link
+                    to="/result"
+                    onClick={() => this.props.hundleGoBackToQuiz("no")}
+                    className="btn btn-success d-inline mr-2"
+                  >
                     Yes
                   </Link>
                   <button
-                    onClick={this.props.hundleGoBackToQuiz}
+                    onClick={() => this.props.hundleGoBackToQuiz("yes")}
                     className="btn btn-danger d-inline mr-2"
                   >
                     No
