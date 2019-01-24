@@ -2,36 +2,43 @@ import React, { Component } from "react";
 
 class Result extends Component {
   render() {
+    let correctAnswersNum = 0;
     return (
       <section>
         <div className="container">
           <div className="row">
             <div className="col-8">
               <h2 className="pt-4 pb-2">Progress</h2>
-              {this.props.quizQuestions.map((quizQuest, quizQuestIdx) =>
-                quizQuest.selected ===
-                this.props.correctAnswers[quizQuestIdx] ? (
-                  <button
-                    onClick={() =>
-                      this.props.hundleSelectedQuestion(quizQuestIdx)
-                    }
-                    className="btn btn-success mr-2"
-                    key={quizQuest.text}
-                  >
-                    <i className="fas fa-check-circle" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      this.props.hundleSelectedQuestion(quizQuestIdx)
-                    }
-                    className="btn btn-danger mr-2"
-                    key={quizQuest.text}
-                  >
-                    <i className="fas fa-times-circle" />
-                  </button>
-                )
-              )}
+              {this.props.quizQuestions.map((quizQuest, quizQuestIdx) => {
+                if (
+                  quizQuest.selected === this.props.correctAnswers[quizQuestIdx]
+                ) {
+                  correctAnswersNum++;
+                  return (
+                    <button
+                      onClick={() =>
+                        this.props.hundleSelectedQuestion(quizQuestIdx)
+                      }
+                      className="btn btn-success mr-2"
+                      key={quizQuest.text}
+                    >
+                      <i className="fas fa-check-circle" />
+                    </button>
+                  );
+                } else {
+                  return (
+                    <button
+                      onClick={() =>
+                        this.props.hundleSelectedQuestion(quizQuestIdx)
+                      }
+                      className="btn btn-danger mr-2"
+                      key={quizQuest.text}
+                    >
+                      <i className="fas fa-times-circle" />
+                    </button>
+                  );
+                }
+              })}
             </div>
             <div className="col-4">
               <h2 className="pt-4 pb-2">Legend</h2>
@@ -49,6 +56,14 @@ class Result extends Component {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <h2 className="mt-5">
+                You Scored {correctAnswersNum} / 10 <br />
+                <strong>{correctAnswersNum * 10}.00%</strong>
+              </h2>
             </div>
           </div>
           <hr />
