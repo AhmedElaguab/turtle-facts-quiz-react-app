@@ -4,10 +4,10 @@ class Result extends Component {
   render() {
     let correctAnswersNum = 0;
     return (
-      <section>
+      <section className="result">
         <div className="container">
           <div className="row">
-            <div className="col-8">
+            <div className="col-12  col-lg-7 order-2 order-lg-1">
               <h2 className="pt-4 pb-2">Progress</h2>
               {this.props.quizQuestions.map((quizQuest, quizQuestIdx) => {
                 if (
@@ -19,7 +19,7 @@ class Result extends Component {
                       onClick={() =>
                         this.props.hundleSelectedQuestion(quizQuestIdx)
                       }
-                      className="btn btn-success mr-2"
+                      className="btn btn-success mr-2 mb-2"
                       key={quizQuest.text}
                     >
                       <i className="fas fa-check-circle" />
@@ -31,7 +31,7 @@ class Result extends Component {
                       onClick={() =>
                         this.props.hundleSelectedQuestion(quizQuestIdx)
                       }
-                      className="btn btn-danger mr-2"
+                      className="btn btn-danger mr-2 mb-2"
                       key={quizQuest.text}
                     >
                       <i className="fas fa-times-circle" />
@@ -40,17 +40,15 @@ class Result extends Component {
                 }
               })}
             </div>
-            <div className="col-4">
+            <div className="col-12  col-lg-5 order-1 order-lg-2">
               <h2 className="pt-4 pb-2">Legend</h2>
               <div className="row">
-                <div className="col-6">
-                  <button className="btn btn-success">
+                <div className="col">
+                  <button className="btn btn-success mr-3 mb-2">
                     <i className="fas fa-check-circle  mr-2" />{" "}
                     <strong>Correct</strong>
                   </button>
-                </div>
-                <div className="col-6">
-                  <button className="btn btn-danger mr-2">
+                  <button className="btn btn-danger mb-2">
                     <i className="fas fa-times-circle  mr-2" />{" "}
                     <strong>Wrong</strong>
                   </button>
@@ -95,7 +93,7 @@ class Result extends Component {
                       }
 
                       return this.props.activeQuestion.type === "text" ? (
-                        <div className="col-6" key={questPoss.answer}>
+                        <div className="col-12 col-md-6" key={questPoss.answer}>
                           <h4
                             onClick={() =>
                               this.props.hundleSelectedAnswer(questPossIdx)
@@ -106,7 +104,7 @@ class Result extends Component {
                           </h4>
                         </div>
                       ) : (
-                        <div className="col-6" key={questPoss.answer}>
+                        <div className="col-12 col-md-6" key={questPoss.answer}>
                           <h4
                             onClick={() =>
                               this.props.hundleSelectedAnswer(questPossIdx)

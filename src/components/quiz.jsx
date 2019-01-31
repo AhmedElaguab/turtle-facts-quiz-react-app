@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 class Quiz extends Component {
   render() {
     return !this.props.goResult ? (
-      <section>
+      <section className="quiz">
         <div className="container">
           <div className="row">
-            <div className="col-8">
+            <div className="col-12  col-lg-7 order-2 order-lg-1">
               <h2 className="pt-4 pb-2">Progress</h2>
               {this.props.quizQuestions.map((quizQuest, quizQuestIdx) =>
                 quizQuest.selected ? (
@@ -17,7 +17,7 @@ class Quiz extends Component {
                     onClick={() =>
                       this.props.hundleSelectedQuestion(quizQuestIdx)
                     }
-                    className="btn btn-info mr-2"
+                    className="btn btn-info mr-2 mb-2"
                     key={quizQuest.text}
                   >
                     <i className="fas fa-pen" />
@@ -27,7 +27,7 @@ class Quiz extends Component {
                     onClick={() =>
                       this.props.hundleSelectedQuestion(quizQuestIdx)
                     }
-                    className="btn btn-danger mr-2"
+                    className="btn btn-danger mr-2 mb-2"
                     key={quizQuest.text}
                   >
                     <i className="fas fa-question" />
@@ -35,17 +35,16 @@ class Quiz extends Component {
                 )
               )}
             </div>
-            <div className="col-4">
+            <div className="col-12  col-lg-5 order-1 order-lg-2">
               <h2 className="pt-4 pb-2">Legend</h2>
               <div className="row">
-                <div className="col-6">
-                  <button className="btn btn-danger">
+                <div className="col">
+                  <button className="btn btn-danger mr-3 mb-2">
                     <i className="fas fa-question  mr-2" />{" "}
                     <strong>Unanswered</strong>
                   </button>
-                </div>
-                <div className="col-6">
-                  <button className="btn btn-info mr-2">
+
+                  <button className="btn btn-info mb-2">
                     <i className="fas fa-pen  mr-2" /> <strong>Answered</strong>
                   </button>
                 </div>
@@ -68,7 +67,7 @@ class Quiz extends Component {
                           : "btn d-block  btn-secondary";
 
                       return this.props.activeQuestion.type === "text" ? (
-                        <div className="col-6" key={questPoss.answer}>
+                        <div className="col-12 col-md-6" key={questPoss.answer}>
                           <h4
                             onClick={() =>
                               this.props.hundleSelectedAnswer(questPossIdx)
@@ -79,7 +78,7 @@ class Quiz extends Component {
                           </h4>
                         </div>
                       ) : (
-                        <div className="col-6" key={questPoss.answer}>
+                        <div className="col-12 col-md-6" key={questPoss.answer}>
                           <h4
                             onClick={() =>
                               this.props.hundleSelectedAnswer(questPossIdx)
