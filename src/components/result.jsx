@@ -1,6 +1,15 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Result extends Component {
+  static propTypes = {
+    quizQuestions: PropTypes.array.isRequired,
+    correctAnswers: PropTypes.array.isRequired,
+    activeQuestion: PropTypes.object.isRequired,
+    activeQuestionIdx: PropTypes.number.isRequired,
+    hundleSelectedQuestion: PropTypes.func.isRequired
+  };
+
   render() {
     let correctAnswersNum = 0;
     return (

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import escapeStrRegExp from "escape-string-regexp";
 import sortBy from "sort-by";
-// import PropTypes from "prop-types";
 
 class factsList extends Component {
   state = {

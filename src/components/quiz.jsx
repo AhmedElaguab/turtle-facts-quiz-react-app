@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 class Quiz extends Component {
+  static propTypes = {
+    answeredQuestionsNum: PropTypes.number.isRequired,
+    activeQuestion: PropTypes.object.isRequired,
+    activeQuestionIdx: PropTypes.number.isRequired,
+    quizQuestions: PropTypes.array.isRequired,
+    hundleSelectedQuestion: PropTypes.func.isRequired,
+    hundleSelectedAnswer: PropTypes.func.isRequired,
+    hundleNextQuestionClick: PropTypes.func.isRequired,
+    goResult: PropTypes.bool.isRequired,
+    hundleGoBackToQuiz: PropTypes.func.isRequired
+  };
+
   render() {
     return !this.props.goResult ? (
       <section className="quiz">
