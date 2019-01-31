@@ -5,6 +5,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import FactsList from "./components/facts-list";
 import Quiz from "./components/quiz";
+import Result from "./components/result";
 
 class App extends Component {
   state = {
@@ -328,11 +329,14 @@ class App extends Component {
     this.setState({ activeQuestion, activeQuestionIdx });
   };
 
-  hundleResultAnswer = rep => {
-    if (rep === "no") {
+  hundleGoBackToQuiz = resp => {
+    if (resp === "yes") {
       this.setState({ goResult: false });
     } else {
-      window.location.pathname = "result";
+      const activeQuestion = this.state.quizQuestions[0];
+      const activeQuestionIdx = 0;
+
+      this.setState({ activeQuestion, activeQuestionIdx });
     }
   };
 
@@ -366,7 +370,20 @@ class App extends Component {
               hundleSelectedAnswer={this.hundleSelectedAnswer}
               hundleNextQuestionClick={this.hundleNextQuestionClick}
               goResult={this.state.goResult}
-              hundleResultAnswer={this.hundleResultAnswer}
+              hundleGoBackToQuiz={this.hundleGoBackToQuiz}
+            />
+          )}
+        />
+
+        <Route
+          path="/result"
+          render={() => (
+            <Result
+              quizQuestions={this.state.quizQuestions}
+              correctAnswers={this.state.correctAnswers}
+              activeQuestion={this.state.activeQuestion}
+              activeQuestionIdx={this.state.activeQuestionIdx}
+              hundleSelectedQuestion={this.hundleSelectedQuestion}
             />
           )}
         />

@@ -141,7 +141,7 @@ class factsList extends Component {
           <div className="row">
             {turtles.length > 0 ? (
               turtles.map(turtle => (
-                <div className="col-6" key={turtle.type}>
+                <div className="col-12 col-md-6" key={turtle.type}>
                   <div className="card mb-3 p-2">
                     <div className="row">
                       <div className="col-6">
